@@ -5,7 +5,7 @@
 | Hạng mục | Nội dung |
 |---|---|
 | Thương hiệu | Giày BQ (đơn vị bán lẻ có cửa hàng thật, không sản xuất) |
-| Điểm khác biệt | Bảo hành trọn đời |
+| Điểm khác biệt | Bảo hành trọn đời (gót, đế, keo, chỉ) |
 | Sản phẩm | Giày công sở tầm trung, dễ tiếp cận |
 | Khách hàng mục tiêu | Người đi làm |
 | Thời lượng | 30 giây |
@@ -70,9 +70,8 @@ Khoảng 40 chữ, giọng nữ trầm ấm, đọc thong thả.
 
 - **Chỉ thể hiện dịch vụ BQ thật sự có.** Các cảnh đo chân, tư vấn thử giày phải khớp với trải
   nghiệm thực tế tại cửa hàng.
-- **Cảnh bảo hành (cảnh 7) chỉ được cho thấy hạng mục nằm trong chính sách bảo hành trọn đời**, ví
-  dụ thay gót, dán đế, khâu lại chỉ. Nếu chính sách không bao gồm thay gót, đổi chi tiết "mòn gót"
-  thành hư hỏng thuộc phạm vi bảo hành.
+- **Cảnh bảo hành (cảnh 7)** dùng chi tiết mòn gót và sờn mũi. Cả hai đều nằm trong chính sách bảo
+  hành trọn đời của BQ, vốn bao gồm gót, đế, keo và chỉ.
 - **Dòng chữ nhỏ dưới "Bảo hành trọn đời"** giúp tránh hiểu nhầm phạm vi bảo hành, và nên được
   bộ phận pháp lý duyệt trước khi phát sóng.
 - **Không gợi ý BQ tự sản xuất.** Tránh cảnh xưởng, khâu đế, đóng gót.
@@ -81,7 +80,3 @@ Khoảng 40 chữ, giọng nữ trầm ấm, đọc thong thả.
 - **Bối cảnh:** căn hộ nhỏ, đường phố TP.HCM giờ cao điểm, cầu thang bộ tòa văn phòng, phòng họp,
   cửa hàng BQ thật (cảnh 5 và 7), sân khấu sự kiện nội bộ công ty.
 - **Đạo cụ:** cần hai đôi giày cùng mẫu, một đôi mới và một đôi đã mòn để quay cảnh bảo hành.
-
-## Câu hỏi còn mở
-
-1. Chính sách bảo hành trọn đời của BQ bao gồm những hạng mục nào (gót, đế, keo, chỉ)?
