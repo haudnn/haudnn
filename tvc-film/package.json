@@ -1,0 +1,20 @@
+{
+  "name": "tvc-giay-bq",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render TungBuoc out/tvc-giay-bq-tung-buoc.mp4 --browser-executable=$(ls -d /opt/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell | head -1)"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "@remotion/media": "4.0.536",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.536"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}
