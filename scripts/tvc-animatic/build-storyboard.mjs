@@ -1,7 +1,7 @@
 // Builds the static storyboard page for the Giày BQ "Từng bước" TVC.
 import { writeFileSync } from 'node:fs';
 
-const OUT = process.argv[2];
+const OUT = import.meta.url === `file://${process.argv[1]}` ? process.argv[2] : undefined;
 
 // Women's low-heel office pump, side view, toe pointing right. Local box ~86 x 38.
 const SHOE = 'M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z';
@@ -52,7 +52,7 @@ function shelfRow(y, x0, n, gap) {
   return g;
 }
 
-const panels = [
+export const panels = [
   {
     t: [0, 3], title: 'Sáng sớm, xỏ giày',
     shot: 'Cận cảnh (CU), máy đặt sát sàn nhà',
@@ -71,7 +71,7 @@ const panels = [
       </g>
       ${arrow('M30 30 V82', 'act')}
       ${label(150, 122, 'cộp!', 'sfx', 'middle')}
-      <g><rect class="tag-bg" x="10" y="10" width="54" height="20" rx="2"/>${label(37, 25, '06:15', 'mono', 'middle')}</g>`,
+      <g class="insert"><rect class="tag-bg" x="10" y="10" width="54" height="20" rx="2"/>${label(37, 25, '06:15', 'mono', 'middle')}</g>`,
   },
   {
     t: [3, 6], title: 'Kẹt xe dưới mưa',
@@ -268,40 +268,7 @@ const panels = [
   },
 ];
 
-const tc = (s) => `00:${String(s).padStart(2, '0')}`;
-
-const panelHtml = panels.map((p, i) => {
-  const n = i + 1;
-  return `
-  <article class="panel" id="canh-${n}">
-    <figure class="frame">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh ${n}: ${p.title}">${p.svg()}</svg>
-    </figure>
-    <div class="caption">
-      <div class="head">
-        <span class="num">${n}</span>
-        <h2>${p.title}</h2>
-        <span class="tc">${tc(p.t[0])}–${tc(p.t[1])}</span>
-      </div>
-      <dl>
-        <div><dt>Khung hình</dt><dd>${p.shot}</dd></div>
-        <div><dt>Máy quay</dt><dd>${p.cam}</dd></div>
-        <div><dt>Hành động</dt><dd>${p.act}</dd></div>
-        <div><dt>Âm thanh</dt><dd>${p.sound}${p.vo ? `<span class="vo">VO: “${p.vo}”</span>` : ''}</dd></div>
-      </dl>
-    </div>
-  </article>`;
-}).join('');
-
-const timeline = panels.map((p, i) =>
-  `<a href="#canh-${i + 1}" style="flex:${p.t[1] - p.t[0]}" title="Cảnh ${i + 1}: ${p.title}"><span>${i + 1}</span></a>`).join('');
-
-const html = `<title>Storyboard Từng bước</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
-<style>
-/* Layout: a production storyboard sheet. A slate header, a 30-second timeline strip, then 16:9 panels in a 3-up grid. */
+export const CSS = `/* Layout: a production storyboard sheet. A slate header, a 30-second timeline strip, then 16:9 panels in a 3-up grid. */
 :root {
   --paper: #eef0f2; --panel: #ffffff; --ink: #23272d; --muted: #5f6772; --line: #d3d8de;
   --tone: #dde1e6; --cloth: #b9c0c9; --uniform: #8c96a3; --skin: #ecd5c3; --night: #2f3644; --ink-night: #c7cdd6;
@@ -407,9 +374,9 @@ svg .logo-t { font-size: 16px; font-weight: 700; letter-spacing: .14em; fill: va
 svg .legal { font-family: var(--font-body); font-size: 7px; fill: var(--muted); }
 svg .sk { filter: url(#rough); }
 @media (prefers-reduced-motion: no-preference) { .strip-row a { transition: border-color .15s; } }
-</style>
+`;
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+export const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/>
@@ -418,7 +385,44 @@ svg .sk { filter: url(#rough); }
     <marker id="m-act" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path class="m-act" d="M0 0 L10 5 L0 10 Z"/></marker>
     <marker id="m-cam" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path class="m-cam" d="M0 0 L10 5 L0 10 Z"/></marker>
   </defs>
-</svg>
+</svg>`;
+
+const tc = (s) => `00:${String(s).padStart(2, '0')}`;
+
+const panelHtml = panels.map((p, i) => {
+  const n = i + 1;
+  return `
+  <article class="panel" id="canh-${n}">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh ${n}: ${p.title}">${p.svg()}</svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">${n}</span>
+        <h2>${p.title}</h2>
+        <span class="tc">${tc(p.t[0])}–${tc(p.t[1])}</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>${p.shot}</dd></div>
+        <div><dt>Máy quay</dt><dd>${p.cam}</dd></div>
+        <div><dt>Hành động</dt><dd>${p.act}</dd></div>
+        <div><dt>Âm thanh</dt><dd>${p.sound}${p.vo ? `<span class="vo">VO: “${p.vo}”</span>` : ''}</dd></div>
+      </dl>
+    </div>
+  </article>`;
+}).join('');
+
+const timeline = panels.map((p, i) =>
+  `<a href="#canh-${i + 1}" style="flex:${p.t[1] - p.t[0]}" title="Cảnh ${i + 1}: ${p.title}"><span>${i + 1}</span></a>`).join('');
+
+const html = `<title>Storyboard Từng bước</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+${CSS}</style>
+
+${DEFS}
 
 <main class="wrap">
   <header class="slate">
@@ -464,5 +468,7 @@ svg .sk { filter: url(#rough); }
 </main>
 `;
 
-writeFileSync(OUT, html);
-console.log('wrote', OUT, html.length, 'bytes');
+if (OUT) {
+  writeFileSync(OUT, html);
+  console.log('wrote', OUT, html.length, 'bytes');
+}
