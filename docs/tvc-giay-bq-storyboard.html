@@ -1,0 +1,466 @@
+<title>Storyboard Từng bước</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a production storyboard sheet. A slate header, a 30-second timeline strip, then 16:9 panels in a 3-up grid. */
+:root {
+  --paper: #eef0f2; --panel: #ffffff; --ink: #23272d; --muted: #5f6772; --line: #d3d8de;
+  --tone: #dde1e6; --cloth: #b9c0c9; --uniform: #8c96a3; --skin: #ecd5c3; --night: #2f3644; --ink-night: #c7cdd6;
+  --glow: #f3dc8f; --shoe: #6f3b22; --shoe-back: #8d5132; --cam: #2c58cf; --act: #cf3f2b;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #15181c; --panel: #1f2329; --ink: #e3e6ea; --muted: #9aa3ae; --line: #343a42;
+  --tone: #2b3138; --cloth: #4a525d; --uniform: #5d6774; --skin: #9b7a64; --night: #0e1116; --ink-night: #c7cdd6;
+  --glow: #8f7a3a; --shoe: #b46c43; --shoe-back: #8c5233; --cam: #7d9cff; --act: #ff7a64; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #15181c; --panel: #1f2329; --ink: #e3e6ea; --muted: #9aa3ae; --line: #343a42;
+  --tone: #2b3138; --cloth: #4a525d; --uniform: #5d6774; --skin: #9b7a64; --night: #0e1116; --ink-night: #c7cdd6;
+  --glow: #8f7a3a; --shoe: #b46c43; --shoe-back: #8c5233; --cam: #7d9cff; --act: #ff7a64; color-scheme: dark }
+
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.55; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 24px; }
+
+.slate { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: end;
+  border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-size: 13px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 68px); line-height: .95; margin: 4px 0 8px; text-wrap: balance; }
+.tagline { margin: 0; max-width: 62ch; font-size: 15px; }
+.slate dl { display: grid; grid-template-columns: repeat(3, auto); gap: 10px 24px; margin: 0; }
+.slate dt, .caption dt { font-family: var(--font-display); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 11.5px; color: var(--muted); }
+.slate dd { margin: 0; font-weight: 500; }
+
+.strip { display: grid; gap: 8px; }
+.strip-row { display: flex; gap: 3px; }
+.strip-row a { display: flex; align-items: center; justify-content: center; height: 30px; background: var(--panel);
+  border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-family: var(--font-mono); font-size: 12px; min-width: 0; }
+.strip-row a:hover, .strip-row a:focus-visible { border-color: var(--ink); outline: none; }
+.ticks { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { width: 34px; height: 12px; flex: none; }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; }
+@media (max-width: 980px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); } .slate { grid-template-columns: minmax(0, 1fr); } .slate dl { grid-template-columns: repeat(2, auto); } }
+
+.panel { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.frame { margin: 0; background: var(--panel); border: 1.5px solid var(--ink); aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; }
+.frame svg { display: block; width: 100%; height: 100%; }
+.head { display: flex; align-items: baseline; gap: 10px; }
+.num { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1; }
+.head h2 { font-size: 15px; font-weight: 600; margin: 0; flex: 1; min-width: 0; text-wrap: balance; }
+.tc { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.caption dl { margin: 8px 0 0; display: grid; gap: 6px; }
+.caption dl div { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 10px; border-top: 1px solid var(--line); padding-top: 6px; }
+.caption dd { margin: 0; font-size: 13.5px; }
+.vo { display: block; margin-top: 4px; font-style: italic; color: var(--ink); font-weight: 500; }
+
+.notes { border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 8px; max-width: 75ch; }
+.notes h3 { font-family: var(--font-display); font-size: 22px; margin: 0; }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* sketch styles */
+svg .ink { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+svg .ink.thin { stroke-width: .8; opacity: .7; }
+svg .ink-night { fill: none; stroke: var(--ink-night); stroke-width: 1.2; }
+svg .tone { fill: var(--tone); }
+svg .night { fill: var(--night); }
+svg .glow { fill: var(--glow); }
+svg .shoe { fill: var(--shoe); stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
+svg .shoe-back { fill: var(--shoe-back); stroke: var(--ink); stroke-width: 1.3; }
+svg .shoe-worn { fill: var(--shoe-back); stroke: var(--ink); stroke-width: 1.3; }
+svg .shoe-ghost { fill: var(--cloth); stroke: var(--ink); stroke-width: .9; opacity: .8; }
+svg .heel { fill: var(--ink); opacity: .55; }
+svg .stitch { fill: none; stroke: var(--paper); stroke-width: .8; stroke-dasharray: 2 2; opacity: .8; }
+svg .cloth { fill: var(--cloth); stroke: var(--ink); stroke-width: 1.2; }
+svg .uniform { fill: var(--uniform); stroke: var(--ink); stroke-width: 1.2; }
+svg .skin { fill: var(--skin); stroke: var(--ink); stroke-width: 1.1; }
+svg .body { fill: var(--tone); stroke: var(--ink); stroke-width: 1.4; }
+svg .puddle { fill: var(--cam); opacity: .16; stroke: var(--cam); stroke-width: .8; }
+svg .ruler { fill: var(--panel); stroke: var(--ink); stroke-width: 1; }
+svg .rain { stroke: var(--cam); stroke-width: .9; opacity: .55; fill: none; }
+svg .trophy { fill: var(--glow); stroke: var(--ink); stroke-width: 1; }
+svg .shadow { fill: var(--ink); opacity: .14; }
+svg .confetti { stroke: var(--act); stroke-width: 2; stroke-linecap: round; opacity: .7; }
+svg .gutter { fill: var(--panel); }
+svg .frame-mark { fill: none; stroke: var(--cam); stroke-width: 1.2; stroke-dasharray: 4 3; }
+svg .tag-bg { fill: var(--panel); stroke: var(--ink); stroke-width: 1; }
+svg .tag-bg.cut { fill: var(--act); stroke: none; }
+svg .logo { fill: var(--ink); }
+svg .arr-act { fill: none; stroke: var(--act); stroke-width: 2.2; stroke-linecap: round; marker-end: url(#m-act); }
+svg .arr-cam { fill: none; stroke: var(--cam); stroke-width: 2.4; stroke-dasharray: 7 4; marker-end: url(#m-cam); }
+svg .m-act { fill: var(--act); } svg .m-cam { fill: var(--cam); }
+svg text { font-family: var(--font-display); fill: var(--ink); }
+svg .lbl, svg .note { font-size: 11px; font-weight: 600; letter-spacing: .06em; }
+svg .note.cam { fill: var(--cam); } svg .note.on { fill: #fff; } svg .note.on-night { fill: var(--ink-night); }
+svg .mono { font-family: var(--font-mono); font-size: 12px; }
+svg .mono.small { font-size: 10px; }
+svg .sfx { font-family: var(--font-body); font-style: italic; font-size: 12px; fill: var(--act); font-weight: 600; }
+svg .sfx.small { font-size: 10px; }
+svg .super { font-size: 19px; font-weight: 700; }
+svg .logo-t { font-size: 16px; font-weight: 700; letter-spacing: .14em; fill: var(--panel); }
+svg .legal { font-family: var(--font-body); font-size: 7px; fill: var(--muted); }
+svg .sk { filter: url(#rough); }
+@media (prefers-reduced-motion: no-preference) { .strip-row a { transition: border-color .15s; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="1.6"/>
+    </filter>
+    <marker id="m-act" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path class="m-act" d="M0 0 L10 5 L0 10 Z"/></marker>
+    <marker id="m-cam" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path class="m-cam" d="M0 0 L10 5 L0 10 Z"/></marker>
+  </defs>
+</svg>
+
+<main class="wrap">
+  <header class="slate">
+    <div>
+      <div class="eyebrow">Storyboard · TVC 30 giây</div>
+      <h1>Từng bước</h1>
+      <p class="tagline">Bạn tận lực trong cuộc sống. Chúng tôi tận tuỵ nâng bước bạn đến thành công.</p>
+    </div>
+    <dl>
+      <div><dt>Thương hiệu</dt><dd>Giày BQ</dd></div>
+      <div><dt>Thời lượng</dt><dd>30 giây</dd></div>
+      <div><dt>Khung hình</dt><dd>16:9</dd></div>
+      <div><dt>Kịch bản</dt><dd>v3</dd></div>
+      <div><dt>Storyboard</dt><dd>v1</dd></div>
+      <div><dt>Ngày</dt><dd>17/10/2026</dd></div>
+    </dl>
+  </header>
+
+  <section class="strip" aria-label="Dòng thời gian 30 giây">
+    <div class="strip-row"><a href="#canh-1" style="flex:3" title="Cảnh 1: Sáng sớm, xỏ giày"><span>1</span></a><a href="#canh-2" style="flex:3" title="Cảnh 2: Kẹt xe dưới mưa"><span>2</span></a><a href="#canh-3" style="flex:3" title="Cảnh 3: Thang máy đầy, chuyển sang thang bộ"><span>3</span></a><a href="#canh-4" style="flex:3" title="Cảnh 4: Hồi hộp trước phòng họp"><span>4</span></a><a href="#canh-5" style="flex:3" title="Cảnh 5: Match cut: cửa hàng BQ"><span>5</span></a><a href="#canh-6" style="flex:4" title="Cảnh 6: Đứng vững thuyết trình, bước qua vũng nước"><span>6</span></a><a href="#canh-7" style="flex:4" title="Cảnh 7: Tan làm muộn, quay lại bảo hành"><span>7</span></a><a href="#canh-8" style="flex:4" title="Cảnh 8: Lên bục nhận giải, máy nâng lên"><span>8</span></a><a href="#canh-9" style="flex:3" title="Cảnh 9: Packshot"><span>9</span></a></div>
+    <div class="ticks"><span>00:00</span><span>00:10</span><span>00:20</span><span>00:30</span></div>
+  </section>
+
+  <div class="legend">
+    <span><svg viewBox="0 0 34 12"><path class="arr-act" d="M2 6 H26"/></svg>Chuyển động của nhân vật</span>
+    <span><svg viewBox="0 0 34 12"><path class="arr-cam" d="M2 6 H26"/></svg>Chuyển động máy quay</span>
+    <span><svg viewBox="0 0 34 12"><rect class="shoe" x="4" y="2" width="26" height="8" rx="3"/></svg>Giày BQ của Linh (sản phẩm)</span>
+    <span><svg viewBox="0 0 34 12"><rect class="frame-mark" x="3" y="1.5" width="28" height="9"/></svg>Khung hình đầu và cuối của cú máy</span>
+  </div>
+
+  <section class="grid">
+  <article class="panel" id="canh-1">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 1: Sáng sớm, xỏ giày">
+      <g class="sk">
+        <path class="ink thin" d="M0 148 H320 M0 160 H320 M0 174 H320 M160 148 L60 180 M160 148 L260 180 M160 148 L0 168 M160 148 L320 168"/>
+        <path class="ink" d="M212 0 V148 M296 0 V148 M218 0 V148"/>
+        <rect class="tone" x="218" y="0" width="78" height="148"/>
+        <circle class="ink" cx="228" cy="92" r="3"/>
+        <g transform="translate(168 125.5) scale(0.6 0.6) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(44 106) scale(1.1 1.1) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -110 L1 -110 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <path class="arr-act" d="M30 30 V82"/>
+      <text class="sfx" x="150" y="122" text-anchor="middle">cộp!</text>
+      <g><rect class="tag-bg" x="10" y="10" width="54" height="20" rx="2"/><text class="mono" x="37" y="25" text-anchor="middle">06:15</text></g></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">1</span>
+        <h2>Sáng sớm, xỏ giày</h2>
+        <span class="tc">00:00–00:03</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Cận cảnh (CU), máy đặt sát sàn nhà</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy đứng yên</dd></div>
+        <div><dt>Hành động</dt><dd>6:15 sáng. Đôi giày BQ đặt ngay ngắn ở cửa. Bàn chân Linh xỏ vào, gót gõ nhẹ xuống sàn.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Chuông báo thức tắt. Tiếng gót "cộp".<span class="vo">VO: “Mỗi ngày, bạn đi xa hơn người ta nghĩ.”</span></dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-2">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 2: Kẹt xe dưới mưa">
+      <g class="sk">
+        <rect class="tone" x="0" y="96" width="320" height="64" opacity=".35"/>
+        <circle class="ink" cx="300" cy="150" r="16"/><circle class="ink" cx="18" cy="146" r="13"/>
+        <ellipse class="puddle" cx="170" cy="164" rx="90" ry="8"/>
+        <path class="ink" d="M0 160 H320"/>
+        <path class="body" d="M30 118 L96 118 L96 131 L44 133 Q20 128 12 108 L8 96 L40 100 Z"/>
+        <path class="body" d="M96 118 H226 Q238 118 240 100 L252 34 L268 36 L258 110 Q254 132 226 132 H96 Z"/>
+        <circle class="ink" cx="252" cy="140" r="22"/><circle class="ink thin" cx="252" cy="140" r="9"/>
+        <g transform="translate(118 81) scale(1 1) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -100 L1 -100 Z" vector-effect="non-scaling-stroke"/></g>
+        <path class="ink thin" d="M206 146 q-6 -10 -2 -16 M214 148 q0 -12 6 -16 M196 150 q-10 -6 -12 -12"/>
+      </g>
+      <path class="rain" d="M161.8 89.7 l-3.9 11.2 M80.5 70.9 l-5.3 15.1 M25.9 140.6 l-5.6 15.9 M135.6 45.5 l-6.2 17.8 M217.0 12.3 l-5.2 15.0 M77.6 107.5 l-4.1 11.6 M184.9 78.0 l-4.1 11.8 M16.5 150.3 l-6.9 19.7 M39.9 71.1 l-6.8 19.6 M62.4 67.1 l-5.4 15.5 M221.7 44.9 l-4.1 11.7 M325.3 71.3 l-4.3 12.3 M180.5 52.9 l-4.0 11.5 M255.0 56.3 l-4.7 13.5 M26.3 148.2 l-4.3 12.4 M291.8 75.3 l-4.3 12.4 M199.0 64.3 l-6.2 17.6 M215.4 21.8 l-4.3 12.2 M148.6 14.4 l-3.7 10.5 M136.0 109.0 l-5.8 16.5 M315.2 52.0 l-5.0 14.4 M163.6 70.2 l-6.4 18.4 M148.7 70.3 l-4.4 12.6 M78.1 118.9 l-4.0 11.3 M89.2 122.7 l-6.5 18.6 M319.6 148.3 l-6.5 18.6 M246.6 102.4 l-5.4 15.5 M8.0 51.8 l-4.8 13.6 M71.0 63.0 l-5.9 16.9 M243.3 42.7 l-6.8 19.6 M2.3 57.6 l-5.6 15.9 M145.6 14.3 l-7.0 19.9 M150.6 139.6 l-5.6 15.9 M154.8 20.0 l-6.3 17.9 M295.8 42.3 l-3.6 10.2 M51.0 113.1 l-5.9 17.0 M217.9 139.1 l-4.3 12.3 M274.1 27.0 l-3.6 10.4 M27.0 3.4 l-5.4 15.4 M274.1 134.9 l-4.0 11.5 M163.0 8.3 l-4.5 12.8 M161.1 10.3 l-4.7 13.6 M76.0 47.4 l-6.3 17.9 M45.1 26.3 l-3.5 10.0 M205.9 13.8 l-4.9 14.0 M36.0 76.5 l-5.0 14.1 "/>
+      <text class="note" x="312" y="18" text-anchor="end">mưa ↘</text></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">2</span>
+        <h2>Kẹt xe dưới mưa</h2>
+        <span class="tc">00:03–00:06</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Trung cảnh hẹp, góc thấp ngang để chân xe máy</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy đi song song theo xe, rung nhẹ</dd></div>
+        <div><dt>Hành động</dt><dd>Giày đặt trên để chân xe tay ga giữa dòng kẹt xe. Nước mưa bắn qua mũi giày.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Còi xe, tiếng mưa rào.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-3">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 3: Thang máy đầy, chuyển sang thang bộ">
+      <g class="sk">
+        <path class="ink" d="M0 150 H150"/>
+        <rect class="ink" x="14" y="28" width="92" height="122"/>
+        <rect class="tone" x="18" y="32" width="40" height="118"/><rect class="tone" x="62" y="32" width="40" height="118"/>
+        <path class="ink" d="M150 150 V130 H185 V110 H220 V90 H255 V70 H290 V50 H320"/>
+        <path class="ink thin" d="M150 104 L320 18 M160 99 V130 M195 81 V110 M230 64 V90 M265 46 V70 M300 28 V50"/>
+        <g transform="translate(150 104) scale(0.7 0.7) rotate(-14 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -70 L1 -70 Z" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(188 83.4) scale(0.7 0.7) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -70 L1 -70 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <path class="arr-act" d="M26 20 H40"/><path class="arr-act" d="M94 20 H80"/>
+      <text class="mono small" x="60" y="22" text-anchor="middle">▲12</text>
+      <path class="arr-act" d="M98 132 Q128 150 150 122"/>
+      <g><rect class="tag-bg" x="236" y="10" width="76" height="18" rx="2"/><text class="note" x="274" y="23" text-anchor="middle">THANG BỘ</text></g></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">3</span>
+        <h2>Thang máy đầy, chuyển sang thang bộ</h2>
+        <span class="tc">00:06–00:09</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Toàn cảnh hẹp (WS) ngang sàn hành lang</dd></div>
+        <div><dt>Máy quay</dt><dd>Lia theo bàn chân từ trái sang phải</dd></div>
+        <div><dt>Hành động</dt><dd>Thang máy đóng sập trước mặt. Bàn chân rẽ ngoắt sang cầu thang bộ, bước hai bậc một.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Tiếng cửa thang máy, tiếng bước dồn dập.<span class="vo">VO: “Qua kẹt xe, qua mưa, qua những bậc thang không có thang máy…”</span></dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-4">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 4: Hồi hộp trước phòng họp">
+      <g class="sk">
+        <path class="ink" d="M0 158 H320"/>
+        <rect class="tone" x="124" y="0" width="196" height="158"/>
+        <path class="ink" d="M124 0 V158"/>
+        <rect class="ink" x="124" y="128" width="196" height="30"/>
+        <rect class="tag-bg" x="250" y="30" width="64" height="20"/>
+        <g transform="translate(16 86) scale(1.9 1.9) rotate(-9 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -60 L1 -60 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <text class="note" x="282" y="44" text-anchor="middle">PHÒNG HỌP</text>
+      <path class="arr-act" d="M182 128 q8 -10 0 -20" style="marker-end:none"/>
+      <path class="arr-act" d="M192 132 q12 -14 0 -28" style="marker-end:none"/>
+      <text class="sfx" x="205" y="102" text-anchor="start">tạch… tạch…</text></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">4</span>
+        <h2>Hồi hộp trước phòng họp</h2>
+        <span class="tc">00:09–00:12</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Cận cảnh (CU) mũi giày</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy đứng yên, lấy nét vào mũi giày</dd></div>
+        <div><dt>Hành động</dt><dd>Linh đứng trước cửa phòng họp. Mũi giày nhịp nhịp xuống sàn vì hồi hộp.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Nhịp chân dần trở thành nhịp nhạc.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-5">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 5: Match cut: cửa hàng BQ">
+      <g class="sk">
+        <rect class="tone" x="0" y="0" width="320" height="152" opacity=".45"/>
+        <line class="ink thin" x1="0" y1="38" x2="320" y2="38"/><g transform="translate(8 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(48 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(88 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(128 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(168 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(208 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(248 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(288 24.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><line class="ink thin" x1="0" y1="78" x2="320" y2="78"/><g transform="translate(26 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(66 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(106 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(146 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(186 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(226 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(266 64.7) scale(0.35 0.35) rotate(0 6 37)"><path class="shoe-ghost" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g>
+        <path class="ink" d="M0 152 H320"/>
+        <rect class="ruler" x="10" y="146" width="190" height="8"/>
+        <path class="ink thin" d="M18 146 v5 M28 146 v3 M38 146 v5 M48 146 v3 M58 146 v5 M68 146 v3 M78 146 v5 M88 146 v3 M98 146 v5 M108 146 v3 M118 146 v5 M128 146 v3 M138 146 v5 M148 146 v3 M158 146 v5 M168 146 v3 M178 146 v5 M188 146 v3"/>
+        <g transform="translate(16 80) scale(1.9 1.9) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -60 L1 -60 Z" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(156 128) rotate(-4) scale(1)">
+    <path class="uniform" d="M84 -37 L140 -42 L140 -8 L84 -12 Z" vector-effect="non-scaling-stroke"/>
+    <path class="skin" d="M86 -32 L52 -26 C42 -25 31 -19 21 -12 L3 -4.5 C-1.5 -2.5 0 3 4.5 2 L24 -3 C36 -5 48 -9 57 -13 L86 -16 Z" vector-effect="non-scaling-stroke"/>
+    <path class="ink thin" d="M40 -17 C46 -18 50 -17 54 -15 M36 -12 C42 -13 47 -12 51 -10" vector-effect="non-scaling-stroke"/>
+  </g>
+      </g>
+      <g><rect class="tag-bg cut" x="236" y="104" width="78" height="18" rx="2"/><text class="note on" x="275" y="117" text-anchor="middle">MATCH CUT ← 4</text></g></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">5</span>
+        <h2>Match cut: cửa hàng BQ</h2>
+        <span class="tc">00:12–00:15</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Cận cảnh (CU), giữ đúng vị trí giày như cảnh 4</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy đứng yên, khớp khung với cảnh 4</dd></div>
+        <div><dt>Hành động</dt><dd>Nhịp chân chuyển sang cửa hàng BQ: bàn chân ấy đặt lên thước đo. Chị Hà quỳ xuống giúp Linh xỏ giày, ấn nhẹ ngón tay lên mũi giày kiểm tra độ vừa.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Nhạc lắng xuống, ấm.<span class="vo">VO: “…và cả những lúc hồi hộp nhất.”</span></dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-6">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 6: Đứng vững thuyết trình, bước qua vũng nước">
+      <defs><clipPath id="c6a"><rect x="0" y="0" width="158" height="180"/></clipPath><clipPath id="c6b"><rect x="162" y="0" width="158" height="180"/></clipPath></defs>
+      <g clip-path="url(#c6a)" class="sk">
+        <rect class="glow" x="10" y="0" width="140" height="70" opacity=".5"/>
+        <path class="ink thin" d="M10 70 H150"/>
+        <rect class="tone" x="104" y="84" width="8" height="66"/><rect class="tone" x="140" y="84" width="8" height="66"/>
+        <path class="ink" d="M96 84 H158 M0 150 H158"/>
+        <g transform="translate(18 123.4) scale(0.7 0.7) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -90 L1 -90 Z" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(52 125.5) scale(0.65 0.65) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -90 L1 -90 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <g clip-path="url(#c6b)" class="sk">
+        <path class="ink" d="M162 150 H320"/>
+        <ellipse class="puddle" cx="250" cy="153" rx="46" ry="7"/>
+        <ellipse class="ink thin" cx="250" cy="153" rx="22" ry="3"/>
+        <g transform="translate(168 124) scale(0.7 0.7) rotate(16 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -70 L1 -70 Z" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(262 92) scale(0.7 0.7) rotate(-10 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -70 L1 -70 Z" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <path class="arr-act" d="M206 112 Q240 70 262 96"/>
+      <rect class="gutter" x="158" y="0" width="4" height="180"/>
+      <text class="note" x="8" y="172" text-anchor="start">6A</text><text class="note" x="312" y="172" text-anchor="end">6B</text></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">6</span>
+        <h2>Đứng vững thuyết trình, bước qua vũng nước</h2>
+        <span class="tc">00:15–00:19</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>6A: trung cảnh chân (MS) · 6B: cận cảnh bước chân</dd></div>
+        <div><dt>Máy quay</dt><dd>6A máy đứng yên · 6B máy đi theo bước chân</dd></div>
+        <div><dt>Hành động</dt><dd>Trở về hiện tại. 6A: Linh đứng vững thuyết trình, chỉ thấy chân và dáng đứng tự tin. 6B: cắt nhanh, bước qua vũng nước trên đường đi gặp khách.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Nhạc dâng lên.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-7">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 7: Tan làm muộn, quay lại bảo hành">
+      <defs><clipPath id="c7a"><rect x="0" y="0" width="158" height="180"/></clipPath><clipPath id="c7b"><rect x="162" y="0" width="158" height="180"/></clipPath></defs>
+      <g clip-path="url(#c7a)">
+        <rect class="night" x="0" y="0" width="158" height="180"/>
+        <g class="sk">
+          <circle class="glow" cx="40" cy="30" r="22" opacity=".55"/><circle class="glow" cx="122" cy="44" r="16" opacity=".45"/>
+          <path class="ink-night" d="M40 30 V150 M122 44 V150 M0 150 H158"/>
+          <g transform="translate(20 117) scale(0.7 0.7) rotate(14 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -80 L1 -80 Z" vector-effect="non-scaling-stroke"/></g>
+          <g transform="translate(78 123.4) scale(0.7 0.7) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="cloth" d="M-1 -2 L34 7 L31 -80 L1 -80 Z" vector-effect="non-scaling-stroke"/></g>
+        </g>
+        <text class="note on-night" x="8" y="172" text-anchor="start">7A · 21:00</text>
+      </g>
+      <g clip-path="url(#c7b)">
+        <g class="sk">
+          <rect class="tone" x="162" y="112" width="158" height="68"/>
+          <path class="ink" d="M162 112 H320"/>
+          <g transform="translate(170 74) scale(1 1) rotate(0 6 37)"><path class="shoe-worn" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/><path class="ink thin" d="M70 27 L74 33 M74 26.5 L78 32 M78 27 L80 31 M5 30 L9 36 M7 28 L11 35 M40 25 C44 28 48 27 50 24 M30 21 C34 25 38 25 40 22" vector-effect="non-scaling-stroke"/></g>
+          <g transform="translate(248 97) rotate(-8) scale(0.8)">
+    <path class="uniform" d="M84 -37 L140 -42 L140 -8 L84 -12 Z" vector-effect="non-scaling-stroke"/>
+    <path class="skin" d="M86 -32 L52 -26 C42 -25 31 -19 21 -12 L3 -4.5 C-1.5 -2.5 0 3 4.5 2 L24 -3 C36 -5 48 -9 57 -13 L86 -16 Z" vector-effect="non-scaling-stroke"/>
+    <path class="ink thin" d="M40 -17 C46 -18 50 -17 54 -15 M36 -12 C42 -13 47 -12 51 -10" vector-effect="non-scaling-stroke"/>
+  </g>
+        </g>
+        <text class="note" x="312" y="172" text-anchor="end">7B · VÀI NĂM SAU</text>
+      </g>
+      <text class="sfx small" x="214" y="62" text-anchor="middle">mòn gót, sờn mũi</text>
+      <rect class="gutter" x="158" y="0" width="4" height="180"/></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">7</span>
+        <h2>Tan làm muộn, quay lại bảo hành</h2>
+        <span class="tc">00:19–00:23</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>7A: toàn cảnh hẹp phố đêm · 7B: cận cảnh quầy cửa hàng</dd></div>
+        <div><dt>Máy quay</dt><dd>7A máy lùi theo bước chân · 7B máy đứng yên</dd></div>
+        <div><dt>Hành động</dt><dd>7A: 21h, sảnh văn phòng vắng, bàn chân vẫn bước đều ra phố đầy đèn. 7B: vài năm sau, đôi giày đã sờn, mòn gót được đặt lên quầy BQ. Chị Hà nâng niu kiểm tra rồi trao lại đôi giày đã bảo hành.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Nhạc tiếp tục dâng.<span class="vo">VO: “Bạn tận lực trong cuộc sống.”</span></dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-8">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 8: Lên bục nhận giải, máy nâng lên">
+      <g class="sk">
+        <path class="glow" d="M220 0 L160 122 L284 122 Z" opacity=".45"/>
+        <path class="ink" d="M0 158 H50 V140 H96 V122 H320"/>
+        <rect class="tone" x="96" y="122" width="224" height="58"/>
+        <path class="cloth" d="M208 66 L206 118 L218 118 L222 80 L226 118 L238 118 L236 66 Z"/>
+        <g transform="translate(227.92000000000002 109) scale(-0.38 0.38) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g><g transform="translate(226 109) scale(0.38 0.38) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g>
+        <path class="uniform" d="M204 70 L200 34 Q222 24 244 34 L240 70 Z"/>
+        <path class="skin" d="M243 36 L262 18 L266 22 L246 44 Z"/>
+        <rect class="trophy" x="260" y="6" width="12" height="16"/>
+        <circle class="skin" cx="222" cy="18" r="10"/>
+        <path class="ink thin" d="M218 21 Q222 25 226 21"/>
+      </g>
+      <rect class="frame-mark" x="186" y="92" width="72" height="40"/>
+      <text class="note cam" x="182" y="104" text-anchor="end">khung đầu</text>
+      <rect class="frame-mark" x="176" y="4" width="92" height="56"/>
+      <text class="note cam" x="172" y="16" text-anchor="end">khung cuối</text>
+      <path class="arr-cam" d="M300 150 V24"/>
+      <text class="note cam" x="312" y="172" text-anchor="end">NÂNG MÁY</text>
+      <path class="confetti" d="M40 20 h5 M70 40 h5 M120 16 h5 M150 50 h5 M30 70 h5 M300 60 h4 M286 20 h5"/></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">8</span>
+        <h2>Lên bục nhận giải, máy nâng lên</h2>
+        <span class="tc">00:23–00:27</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Mở đầu cận cảnh giày, kết thúc trung cảnh (MS) lộ gương mặt</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy nâng lên (crane up) lần đầu tiên trong phim, từ sàn lên ngang mặt</dd></div>
+        <div><dt>Hành động</dt><dd>Bước nhảy thời gian: cùng đôi chân bước lên bục nhận giải nhân viên xuất sắc. Máy từ từ nâng lên, lộ gương mặt Linh mỉm cười.</dd></div>
+        <div><dt>Âm thanh</dt><dd>Nhạc đạt đỉnh.<span class="vo">VO: “Chúng tôi tận tuỵ nâng bước bạn đến thành công.”</span></dd></div>
+      </dl>
+    </div>
+  </article>
+  <article class="panel" id="canh-9">
+    <figure class="frame">
+      <svg viewBox="0 0 320 180" role="img" aria-label="Cảnh 9: Packshot">
+      <ellipse class="shadow" cx="118" cy="140" rx="74" ry="6"/>
+      <g class="sk">
+        <path class="ink thin" d="M0 140 H320"/>
+        <g transform="translate(84 92) scale(1 1) rotate(0 6 37)"><path class="shoe-back" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g>
+        <g transform="translate(52 100) scale(1.05 1.05) rotate(0 6 37)"><path class="shoe" d="M4 4 L4 24 L4 37 L12 37 L15 27 C24 28 34 33 48 35 L76 35 C83 35 85 29 78 26 C68 22 56 20 46 21 C34 22 22 15 4 4 Z" vector-effect="non-scaling-stroke"/><path class="heel" d="M4 25 L4 37 L12 37 L14.5 27.5 Z" vector-effect="non-scaling-stroke"/><path class="stitch" d="M9 9 C20 16 32 23 46 24.5 C58 25.5 70 26 77 29.5" vector-effect="non-scaling-stroke"/></g>
+      </g>
+      <text class="super" x="160" y="34" text-anchor="middle">Bạn tận lực. Chúng tôi tận tuỵ.</text>
+      <rect class="logo" x="210" y="92" width="96" height="30" rx="2"/>
+      <text class="logo-t" x="258" y="112" text-anchor="middle">GIÀY BQ</text>
+      <text class="note" x="258" y="134" text-anchor="middle">Bảo hành trọn đời</text>
+      <text class="legal" x="160" y="172" text-anchor="middle">Áp dụng theo chính sách bảo hành của Giày BQ</text></svg>
+    </figure>
+    <div class="caption">
+      <div class="head">
+        <span class="num">9</span>
+        <h2>Packshot</h2>
+        <span class="tc">00:27–00:30</span>
+      </div>
+      <dl>
+        <div><dt>Khung hình</dt><dd>Cận cảnh sản phẩm trên nền sạch</dd></div>
+        <div><dt>Máy quay</dt><dd>Máy trượt ngang rất chậm</dd></div>
+        <div><dt>Hành động</dt><dd>Đôi giày công sở nữ của BQ. Super: "Bạn tận lực. Chúng tôi tận tuỵ." cùng logo Giày BQ và dòng phụ "Bảo hành trọn đời".</dd></div>
+        <div><dt>Âm thanh</dt><dd>Âm thanh logo.</dd></div>
+      </dl>
+    </div>
+  </article>
+  </section>
+
+  <section class="notes">
+    <h3>Ghi chú cho đoàn quay</h3>
+    <ul>
+      <li>Cảnh 1 đến 7 giữ máy ở độ cao mắt cá chân. Cảnh 8 là lần duy nhất máy nâng lên, nên tránh mọi cú máy cao trước đó.</li>
+      <li>Cảnh 4 và 5 phải khớp vị trí giày trong khung để chuyển cảnh match cut liền mạch.</li>
+      <li>Cảnh 7B cần một đôi giày cùng mẫu đã mòn gót và sờn mũi. Phạm vi bảo hành trọn đời của BQ bao gồm gót, đế, keo và chỉ.</li>
+      <li>Cảnh 5 và 7B quay tại cửa hàng BQ thật. Dòng chữ nhỏ ở cảnh 9 cần bộ phận pháp lý duyệt trước khi phát sóng.</li>
+    </ul>
+  </section>
+</main>
