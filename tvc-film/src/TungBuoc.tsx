@@ -45,7 +45,7 @@ const Warranty: React.FC = () => {
       <Clip src="s7b-worn" from={0.6} />
       <AbsoluteFill style={{ opacity: swap }}>
         <Sequence from={s(1.0)}>
-          <Clip src="s7b-new" from={0.8} />
+          <Clip src="s7b-new" from={0.2} />
         </Sequence>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -64,9 +64,9 @@ const Packshot: React.FC = () => {
   });
   return (
     <AbsoluteFill>
-      <Clip src="s9" />
-      <AbsoluteFill style={{ left: '57%', right: '3%', justifyContent: 'center', gap: 34, fontFamily, color: '#3a2417' }}>
-        <div style={{ ...rise(6), fontSize: 80, fontWeight: 700, lineHeight: 1.12 }}>
+      <Clip src="s9" from={0.7} rate={0.5} />
+      <AbsoluteFill style={{ left: '61%', right: '3%', justifyContent: 'center', gap: 34, fontFamily, color: '#3a2417' }}>
+        <div style={{ ...rise(6), fontSize: 72, fontWeight: 700, lineHeight: 1.12 }}>
           Bạn tận lực.
           <br />
           Chúng tôi tận tuỵ.
@@ -127,7 +127,7 @@ const SHOTS: { from: number; to: number; el: React.ReactNode }[] = [
   { from: 3, to: 6, el: <Clip src="s2" from={0.5} /> },
   { from: 6, to: 9, el: <Clip src="s3" from={0.5} /> },
   { from: 9, to: 12, el: <Clip src="s4" from={0.5} /> },
-  { from: 12, to: 15, el: <Clip src="s5" from={0.5} /> },
+  { from: 12, to: 15, el: <Clip src="s5" /> },
   { from: 15, to: 17, el: <Clip src="s6a" from={1} /> },
   { from: 17, to: 19, el: <Clip src="s6b" from={0.8} /> },
   { from: 19, to: 21, el: <Clip src="s7a" from={1} /> },
