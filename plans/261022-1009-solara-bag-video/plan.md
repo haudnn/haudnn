@@ -1,8 +1,15 @@
 # SOLARA bag promo video (9:16, ~12 s)
 
-Status: blocked — no AI image/video generation key in the environment.
-Unblock: add `GEMINI_API_KEY` (Veo + Nano Banana) or `MINIMAX_API_KEY` (Hailuo) or
-`OPENROUTER_API_KEY` as an environment variable, then start a new session.
+Status: v1 delivered — `output/solara-bag-12s-9x16.mp4` (720x1280, 25 fps, 12.0 s, AAC).
+
+Built via OpenRouter (`OPENROUTER_API_KEY`): keyframes with `google/gemini-3-pro-image`
+using `assets/` as references (`pipeline/keyframe.py`, `pipeline/prompts/`), motion with
+`google/veo-3.1-fast` 720p 9:16 4 s, no audio (`pipeline/img2video.py`, `pipeline/video-prompts/`).
+R3 = `r3` (lock turn) + `r3b` (flap opening, started from a frame of `r3`).
+R5b is a real stop-motion: props revealed one by one from a bag-only frame to an edited
+frame with props (same bag position). Text overlays rendered with Cormorant Garamond.
+Music is a synthesized 128 BPM loop (no music provider key configured).
+Placeholder tagline in R6: "Thanh lịch trong từng chi tiết".
 
 ## Outcome
 
